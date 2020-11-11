@@ -193,30 +193,32 @@ def showBoschRose(c):
 
 
 # part to file and bottom left corner
-def draw_svg(path, blc):
+def draw_svg(path, blc, scale = 1.0):
     paths, attributes = svg2paths(path)
     xs, ys, lengths = [], [], []
     for path in paths:
         length = path.length(0, 1.0)
         N = int(length/20) if int(length/20) >= 50 else 50
         ts = np.linspace(0.0, 1.0, N)
-        x, y, length = [],[],[]
+        x, y, les = [],[],[]
         prev_t = 0
         for t in ts:
-            # length.append(path.length(prev_t, t))
+            les.append(path.length(prev_t, t))
             point = path.point(t)
             x.append(np.real(point))
-            y.append(1052.3622 - np.imag(point))  # 1052.36220 - height of A4 page
+            y.append(np.imag(point))  # 1052.36220 - height of A4 page
             prev_t = t
 
-        x = np.array(x)*0.08 + blc[0]
-        y = -np.array(y)*0.08 + blc[1]
-        length = np.array(length)
+        x = np.array(x) * scale + blc[0]
+        y = np.array(y) * scale + blc[1]
+        les = np.array(les) * scale
         xs.append(x)
         ys.append(y)
-        lengths.append(length)
+        lengths.append(les)
 
-    params_list, start_points = [], []
+    params_list = []
+    start_positions = []
+    end_positions = []
 
     order = 3
 
@@ -228,20 +230,19 @@ def draw_svg(path, blc):
         params = poly.interpolate(sol)
         params_list.append(params)
         plt.plot(points[:, 0], points[:, 1])
-        start_points.append(np.copy(points[0]))
+        start_positions.append(np.copy(sol[0]))
+        end_positions.append(np.copy(sol[len(sol) - 1]))
 
-    # plt.show()
+    plt.show()
 
-    # for start, params in zip(start_points, params_list):
-    #     c.move_to_pos([start[0], start[1], 300, start[3]])
-    #     prev_a = c.move_to_pos(start)
-    #     c.wait_ready(sync=True)
-    #     for i in range(len(params)):
-    #         c.splinemv(params[i], order=order, min_time=150)
-    #     c.wait_ready(sync=True)
-    #     c.move_to_pos([start[0], start[1], 300, start[3]])
-
-
+    for start, end, params, le in zip(start_positions, end_positions, params_list, lengths):
+        c.move_to_pos([start[0], start[1], start[2] + 8000, start[3]])
+        prev_a = c.move_to_pos(start)
+        c.wait_ready(sync=True)
+        for i in range(len(params)):
+            c.splinemv(params[i], order=order, min_time=le[i+1]*1.0)
+        c.wait_ready(sync=True)
+        c.move_to_pos([end[0], end[1], end[2] + 8000, end[3]])
 
 if __name__ == '__main__':
     robot = robotBosch()
@@ -250,6 +251,7 @@ if __name__ == '__main__':
     c.open_comm('/dev/ttyUSB0', speed=19200)
     c.init()
     # c.move_to_pos([-300, 220, 20, 0])
-    # draw_svg('img/charmander.svg', [-200, 400])
+    # draw_svg('charmander.svg', [-200, 400], 0.08)
+    # draw_svg('pi_logo.svg', [-200, 300], 0.01)
     showBoschRose(c)
     # c.rcon.write('PURGE:\n')
