@@ -57,7 +57,7 @@ class robotBosch:
 
         self.DOF = 4
         self.activemotors = 'ABCD'
-        self.hh_axes_list = 'ABDC'
+        self.hh_axes_list = 'CABD'
         self.control_axes_list = 'ABCD'
         self.coord_axes = 'ABCD'
 
