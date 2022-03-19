@@ -104,12 +104,12 @@ def showBoschRose(c):
     # e = Graph(sol)
     # e.show_gui()
 
-    H = 300
+    z0 = 328
 
     cond = lambda t: True
     f_x = lambda t: 30.0*np.cos(7.0/4.0*t)*np.cos(t)
     f_y = lambda t: 30.0*np.cos(7.0/4.0*t)*np.sin(t)
-    sol, points, lengths = rose_st(c, 0, 300, 325, f_x, f_y, cond, 1.0, 4*np.pi, 300)
+    sol, points, lengths = rose_st(c, 0, 300, z0, f_x, f_y, cond, 1.0, 4*np.pi, 300)
 
     length.append(lengths)
     params = poly.interpolate(sol)
@@ -120,7 +120,7 @@ def showBoschRose(c):
     cond = lambda t: True
     f_x = lambda t: 30.0 * np.cos(2.0 / 5.0 * t) * np.cos(t)
     f_y = lambda t: 30.0 * np.cos(2.0 / 5.0 * t) * np.sin(t)
-    sol, points, lengths = rose_st(c, 75, 380, 325, f_x, f_y, cond, 1.0, 5 * np.pi, 400)
+    sol, points, lengths = rose_st(c, 75, 380, z0, f_x, f_y, cond, 1.0, 5 * np.pi, 400)
 
     length.append(lengths)
     params = poly.interpolate(sol)
@@ -131,7 +131,7 @@ def showBoschRose(c):
     cond = lambda t: True
     f_x = lambda t: 30.0 * np.cos(2.0 / 9.0 * t) * np.cos(t)
     f_y = lambda t: 30.0 * np.cos(2.0 / 9.0 * t) * np.sin(t)
-    sol, points, lengths = rose_st(c, 0, 380, 325, f_x, f_y, cond, 1.0, 9 * np.pi, 400)
+    sol, points, lengths = rose_st(c, 0, 380, z0, f_x, f_y, cond, 1.0, 9 * np.pi, 400)
 
     length.append(lengths)
     params = poly.interpolate(sol)
@@ -142,7 +142,7 @@ def showBoschRose(c):
     cond = lambda t: True
     f_x = lambda t: 30.0 * np.cos(6.0 / 2.0 * t) * np.cos(t)
     f_y = lambda t: 30.0 * np.cos(6.0 / 2.0 * t) * np.sin(t)
-    sol, points, lengths = rose_st(c, 75, 300, 325, f_x, f_y, cond, 1.0, 0.5* np.pi, 150)
+    sol, points, lengths = rose_st(c, 75, 300, z0, f_x, f_y, cond, 1.0, 0.5* np.pi, 150)
 
     length.append(lengths)
     params = poly.interpolate(sol)
@@ -153,7 +153,7 @@ def showBoschRose(c):
     #cond = lambda t: True
     #f_x = lambda t: 40.0/2 * np.sin(6.04*t/3)/(0.3+np.sin(t)**2)
     #f_y = lambda t: 70.0/2 * np.power(np.sin(6.04*t), 4) * np.cos( t)
-    #sol, points, lengths = rose_st(c, 0, 300, 300, f_x, f_y, cond, 7.0, 3.12, 350)
+    #sol, points, lengths = rose_st(c, 0, 300, z0, f_x, f_y, cond, 7.0, 3.12, 350)
 
     #length.append(lengths)
     #params = poly.interpolate(sol)
@@ -167,7 +167,7 @@ def showBoschRose(c):
     # cond = lambda t: True
     # f_x = lambda t: 30.0 * np.power(np.sin(8.78*t), 6)
     # f_y = lambda t: 40.0 * np.sinh(np.sinh(np.sin(2.94*t)))*np.power(np.cos(8.78*t), 2)
-    # sol, points, lengths = rose_st(c, -200, 350, 300, f_x, f_y, cond, 7.0, .54, 300)
+    # sol, points, lengths = rose_st(c, -200, 350, z0, f_x, f_y, cond, 7.0, .54, 300)
     #
     # length.append(lengths)
     # poly.interpolate(sol)
