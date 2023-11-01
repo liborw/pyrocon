@@ -391,7 +391,7 @@ class Commander:
             axis_lst = self.robot.coord_axes
         resp = self.query('COORDAP')
         try:
-            resp = np.array(map(int,resp.split(',')))
+            resp = np.fromiter(map(int, resp.split(',')), int)
         except:
             print('Error responce', resp)
         t = resp[0]
